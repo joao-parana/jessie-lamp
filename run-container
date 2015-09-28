@@ -4,7 +4,7 @@ docker rm web_jessie
 docker run -d --name web_jessie \
     -v ~/Desktop/Development/jessie-lamp/test/site:/var/www/html \
     -p 8085:80 -p 2285:22 \
-    -e ROOT_PASSWORD xyz
+    -e ROOT_PASSWORD=xyz  \
     parana/jessie-lamp start-all
 
 echo Contêiner web_jessie iniciado com WEB na porta 8085 e ssh na porta 2285
