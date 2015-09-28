@@ -101,11 +101,11 @@ Se você estiver usando o **MAC OSX** com Boot2Docker
 poderá executar o comando abaixo para abrir uma sessão como 
 root no MySQL:
 
-    open http://`boot2docker ip`:8081 
+    open http://`boot2docker ip`:8085 
 
 No Linux (Ubuntu por exemplo) use assim:
 
-    open http://`boot2docker ip`:8081
+    open http://`boot2docker ip`:8085
 
 A senha do MySQL para ser usada no programa PHP 
 está Hard-coded no arquivo run.sh, mas apenas 
@@ -131,18 +131,6 @@ Da mesma forma, para verificar a configuração do PHP use:
 
 
 ## Testando o ambiente
-
-Programa PHP usando o MySQL e o Apache.
-
-Arquivos: 
-
-Classe Database (class/mysql_crud.php) 
-
-    https://raw.githubusercontent.com/rorystandley/MySQL-CRUD-PHP-OOP/master/class/mysql_crud.php
-
-Função para Select (ajax/select.php)
-
-    https://github.com/rorystandley/MySQL-CRUD-PHP-OOP/blob/master/ajax/select.php
 
 Pagina WEB de teste:
 
@@ -199,15 +187,15 @@ Pagina WEB de teste:
 
 Foram adicionados os arquivos:
 
-    set_root_pw.sh
-    start-all
+Arquivo: set_root_pw.sh
+Arquivo: start-all
 
 Foram alterados os arquivos:
 
-   Dockerfile
-   README.md
-   docker-entrypoint.sh
-   run-container
+    Dockerfile
+    README.md
+    docker-entrypoint.sh
+    run-container
 
 Veja abaixo as modificações no Dockerfile para suportar o SSH
 
@@ -220,5 +208,5 @@ Veja abaixo as modificações no docker-entrepoint.sh para suportar o SSH
 As alaterações ao final são apenas melhoria no Help.
 
 
-### Mais detalhes sobre Docker no meu Blog: [http://joao-parana.com.br/blog/](http://joao-parana.com.br/blog/)
+#### Mais detalhes sobre Docker no meu Blog: [http://joao-parana.com.br/blog/](http://joao-parana.com.br/blog/)
 

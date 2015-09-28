@@ -31,6 +31,17 @@ ENV MYSQL_VERSION 5.6.26
 COPY install-mysql.bash ./
 RUN ./install-mysql.bash
 
+# Adicionando Suporte ao SSH com OpenSSH
+ADD set_root_pw.sh /set_root_pw.sh
+# Install packages
+RUN apt-get update && \
+    apt-get -y install openssh-server pwgen && \
+    mkdir -p /var/run/sshd && \
+    sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+    sed -i "s/PermitRootLogin without-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
+
+ENV AUTHORIZED_KEYS **None**
+
 ENV PHP_MEMORY_LIMIT 119M
 COPY config/php.ini /usr/local/etc/php/
 RUN mkdir -p /var/log/php/ && chmod 777 /var/log/php/
@@ -53,6 +64,7 @@ EXPOSE 80
 COPY ./start-apache /start-apache
 COPY ./run-mysql.bash /run-mysql.bash
 COPY ./start-apache-and-mysql /start-apache-and-mysql
+COPY ./start-all /start-all
 
 # Flag Default fornecida via comando CMD
 CMD ["--help"]
