@@ -1,5 +1,5 @@
 --
--- Para testar Ajax com PHP Orientado a Objetos
+-- Para testar o MySQL
 --
 CREATE TABLE IF NOT EXISTS CRUDClass (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS CRUDClass (
   PRIMARY KEY (id)
 );
 
-INSERT INTO CRUDClass VALUES('','Name 1','name1@email.com');
-INSERT INTO CRUDClass VALUES('','Name 2','name2@email.com');
-INSERT INTO CRUDClass VALUES('','Name 3','name3@email.com');
+INSERT INTO CRUDClass VALUES(NULL,'Name 1','name1@email.com');
+INSERT INTO CRUDClass VALUES(NULL,'Name 2','name2@email.com');
+INSERT INTO CRUDClass VALUES(NULL,'Name 3','name3@email.com');
+COMMIT;

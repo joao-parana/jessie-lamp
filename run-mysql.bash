@@ -88,9 +88,10 @@ EOSQL
     echo "  PRIMARY KEY (id)" >> "$tempSqlFile"
     echo ");" >> "$tempSqlFile"
     echo " " >> "$tempSqlFile"
-    echo "INSERT INTO CRUDClass VALUES('','Name 1','name1@email.com');" >> "$tempSqlFile"
-    echo "INSERT INTO CRUDClass VALUES('','Name 2','name2@email.com');" >> "$tempSqlFile"
-    echo "INSERT INTO CRUDClass VALUES('','Name 3','name3@email.com');" >> "$tempSqlFile"
+    echo "INSERT INTO CRUDClass VALUES(NULL,'João','name1@email.com');" >> "$tempSqlFile"
+    echo "INSERT INTO CRUDClass VALUES(NULL,'Pedro','name2@email.com');" >> "$tempSqlFile"
+    echo "INSERT INTO CRUDClass VALUES(NULL,'Maria','name3@email.com');" >> "$tempSqlFile"
+    echo "COMMIT;" >> "$tempSqlFile"
 
     # mysql -u root -p$MYSQL_ROOT_PASSWORD -h 127.0.0.1 < "$tempSqlFile"
 fi
