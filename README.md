@@ -81,7 +81,7 @@ uso via SSH use o comando abaixo:
     docker logs web_jessie 2> /dev/null | grep  "senha de root"
 
 Podemos então abrir uma sessão SSH com o contêiner. No caso de 
-usar o Docker num Host com MAC OSX podemos fazer:
+usar o Docker num Host com **MAC OSX** podemos fazer:
 
     ssh -p 2285 root@$(docker-ip)
 
@@ -91,6 +91,12 @@ Veja o fonte abaixo:
     docker-ip() {
       boot2docker ip 2> /dev/null
     }
+
+Para abrir uma sessão SSH com o contêiner quando
+usar o Docker num Host **Linux**, Ubuntu por exemplo, 
+podemos fazer:
+
+    ssh -p 2285 root@localhost
 
 Após executar o sistema por um tempo, podemos parar o contêiner 
 novamente para manutenção
@@ -117,7 +123,7 @@ root no MySQL:
 
 No Linux (Ubuntu por exemplo) use assim:
 
-    open http://$(docker-ip):8085
+    open http://localhost:8085
 
 A senha do MySQL para ser usada no programa PHP 
 está Hard-coded no arquivo run.sh, mas apenas 
