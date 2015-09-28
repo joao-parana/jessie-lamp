@@ -36,18 +36,49 @@ Em seguida podemos removê-lo
 
     docker rm web_jessie
 
-Podemos Executar o Contêiner como Daemon assim:
+Podemos executar o Contêiner iterativamente para obter um help assim:
 
-    docker run -d --name web_jessie -p 8085:80 HUB-USER-NAME/jessie-lamp
+    docker run --rm -i -t --name web_jessie HUB-USER-NAME/jessie-lamp
+
+Podemos tambem executar iterativamente assim:
+
+    docker run --rm -i -t --name web_jessie \
+           -p 8085:80 -p 2285:22            \
+           -e ROOT_PASSWORD=xyz             \
+           -v ./test/site:/var/www/html     \
+           HUB-USER-NAME/jessie-lamp start-all
+
+Ou preferencialmente no modo Daemon assim:
+
+    docker run -d --name web_jessie         \
+           -p 8085:80 -p 2285:22            \
+           -e ROOT_PASSWORD=xyz             \
+           -v ./test/site:/var/www/html     \
+           HUB-USER-NAME/jessie-lamp start-all
 
 Observe o mapeamento da porta 80 do Apache dentro do contêiner 
 para uso externo em 8085. O valor 8085 pode ser alterado a seu critério.
 Você pode inclusive usar a porta 80 se tiver direitos para isso e se 
 não estiver ocupada.
 
+A porta 22 do SSH também foi mapeada e neste caso para 2285.
+
+Também foi definido um diretório no host para ser montado 
+em /var/www/html
+
+Desta forma os Desenvolvedores poderão modificar os programas 
+no computador Host usando as ferramentas visuais adequadas
+(IDE, Browser, etc) pois as mudanças refletem imediatamente no 
+Contêiner e são vistas pelo runtime do Apache e do PHP.
+
 Verificando o Log
 
     docker logs web_jessie
+
+Para ver apenas a password do usuário root que foi definida para 
+uso via SSH use o comando abaixo:
+
+    docker logs web_jessie 2> /dev/null | grep  "senha de root"
 
 Após executar o sistema por um tempo, podemos parar o contêiner 
 novamente para manutenção
@@ -115,6 +146,7 @@ Função para Select (ajax/select.php)
 
 Pagina WEB de teste:
 
+    <?php ?>
     <!DOCTYPE html>
     <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
     <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -127,32 +159,66 @@ Pagina WEB de teste:
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <!-- script>
-          $(function(){
-            $.ajax({
-              url:"ajax/select.php",
-              dataType:"json",
-              success:function(data){
-                $.each(data, function(index){
-                  $("#names").append("<li>"+data[index].name+"</li>")
-                });
-              }
-            });
-          });
-        </script  -->
       </head>
       <body>
         <!--[if lt IE 7]>
-          <p class="chromeframe">You are using an <strong>outdated</strong> browser. 
-          Please <a href="http://browsehappy.com/">upgrade your browser</a> or 
+          <p class="chromeframe">You are using an <strong>outdated</strong> browser.
+          Please <a href="http://browsehappy.com/">upgrade your browser</a> or
           <a href="http://www.google.com/chromeframe/?redirect=true">
             activate Google Chrome Frame
           </a> to improve your experience.</p>
         <![endif]-->
-        <ul id="names"></ul>
+
+        <div>Servidor : <span id="server_name">
+          <?php echo $_SERVER['SERVER_NAME']; ?></span><br><br>
+          Browser: <?php echo $_SERVER["HTTP_USER_AGENT"]; ?><br><br>
+          Versão do PHP: <?php echo $_ENV["PHP_VERSION"] ?><br><br>
+        </div>
+        <br><br>
+        Você está vendo o nome do servidor ou endereço IP ?
+        Isto indica que  o PHP está OK.
+        <br><br>
+        <div>
+          ATENÇÃO: Verifique abaixo se o valor de memory_limit é o mesmo
+          definido no Dockerfile via comando ENV.
+          Isto significa que a configuração flexivel do PHP também está OK.
+        </div>
+        <script>
+          console.log('<?php echo 'Servidor: ' .
+                      $_SERVER['SERVER_NAME']; ?>');
+
+          if ($('#server_name').text()) {
+            alert('Veio Server Name =' + $('#server_name').text());
+          }
+        </script>
+        <?php phpinfo(); ?>
       </body>
     </html>
 
+## Diferenças entre a versão 1 e a versão 2
 
-Mais detalhes sobre Docker no meu Blog: [http://joao-parana.com.br/blog/](http://joao-parana.com.br/blog/)
+Foram adicionados os arquivos:
+
+    set_root_pw.sh
+    start-all
+
+Foram alterados os arquivos:
+
+   Dockerfile
+   README.md
+   docker-entrypoint.sh
+   run-container
+
+Veja abaixo as modificações no Dockerfile para suportar o SSH
+
+![https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-dockerfile.png](https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-dockerfile.png)
+
+Veja abaixo as modificações no docker-entrepoint.sh para suportar o SSH
+
+![https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-entrypoint.png](https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-entrypoint.png)
+
+As alaterações ao final são apenas melhoria no Help.
+
+
+### Mais detalhes sobre Docker no meu Blog: [http://joao-parana.com.br/blog/](http://joao-parana.com.br/blog/)
 
