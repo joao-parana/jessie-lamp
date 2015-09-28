@@ -1,0 +1,9 @@
+docker stop web_jessie
+docker rm web_jessie
+# docker run --rm -i -t --name web_jessie -p 8085:80 parana/jessie-lamp
+docker run -d --name web_jessie \
+    -v ~/Desktop/Development/jessie-lamp/test/site:/var/www/html \
+    -p 8085:80 parana/jessie-lamp start-apache-and-mysql
+echo Contêiner web_jessie iniciado na porta 8085
+echo "Use open http://`boot2docker ip`:8085 para testar"
+docker logs web_jessie
