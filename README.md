@@ -188,6 +188,7 @@ Pagina WEB de teste:
 Foram adicionados os arquivos:
 
 Arquivo: [set_root_pw.sh](https://github.com/joao-parana/jessie-lamp/blob/master/set_root_pw.sh)
+
 Arquivo: [start-all](https://github.com/joao-parana/jessie-lamp/blob/master/start-all)
 
 Foram alterados os arquivos:
