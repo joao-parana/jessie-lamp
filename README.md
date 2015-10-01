@@ -98,6 +98,10 @@ podemos fazer:
 
     ssh -p 2285 root@localhost
 
+Para testar a conexão com o Banco de Dados podemos usar:
+
+    docker exec web_jessie php /var/www/html/testecli.php
+
 Após executar o sistema por um tempo, podemos parar o contêiner 
 novamente para manutenção
 
