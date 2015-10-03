@@ -4,10 +4,18 @@ set -e
 
 # Informações abaixo estão Hard-coded
 # apenas por motivos didáticos
-MYSQL_ROOT_PASSWORD=xpto
 MYSQL_DATABASE=my-db
 MYSQL_USER=wp
 MYSQL_PASSWORD=secret
+
+if [ -z "$MYSQL_ROOT_PASSWORD" ]; then
+    MYSQL_ROOT_PASSWORD='xpto'
+fi
+# Devo deixar a variavel no Environment para uso
+# por imagens que herdam desta que eventualmente
+# necessitem
+export MYSQL_ROOT_PASSWORD
+echo "••• `date` - MYSQL_ROOT_PASSWORD = $MYSQL_ROOT_PASSWORD"
 
 # A abordagem correta é obter parâmetros
 # como no exemplo abaixo

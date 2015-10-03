@@ -31,6 +31,10 @@ echo "deb http://repo.mysql.com/apt/debian/ jessie mysql-${MYSQL_MAJOR}" > /etc/
   && apt-get update && apt-get install -y mysql-server="${MYSQL_VERSION}"* && rm -rf /var/lib/apt/lists/* \
   && rm -rf /var/lib/mysql && mkdir -p /var/lib/mysql
 
+echo "••• "
+echo "••• `date` - Exibindo a versão do MySQL Server disponível no repositório"
+echo "••• "
+apt-cache show mysql-server | grep ${MYSQL_MAJOR}
 echo "••• `date` - Exibindo o conteudo original do arquivo /etc/mysql/my.cnf"
 cat /etc/mysql/my.cnf
 

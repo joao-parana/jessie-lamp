@@ -23,6 +23,23 @@ Criando a imagem
 
 Substitua o token `HUB-USER-NAME` pelo seu login em [http://hub.docker.com](http://hub.docker.com)
 
+**Atenção:** Caso ocorra um erro parecido com este em vermelho mostrado na figura abaixo, 
+altere a versão do MySQL Server na instrução `ENV` do Dockerfile.
+
+![https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/erro-debin-mysql-install.png](https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/erro-debin-mysql-install.png)
+
+Exemplo: Mude de `ENV MYSQL_VERSION 5.6.26` para `ENV MYSQL_VERSION 5.6.27`
+
+Isto ocorre pois aparentemente, apenas a ultima versão fica disponível 
+no repositório e de tempos em tempos ela é substituida por uma versão 
+mais nova.
+
+Observe que quando ocorre o erro aparece abaixo uma mensagem semelhante 
+a esta mostrada na imagem. A versão mostrada é a que está disponível 
+no repositório. Neste exemplo é a `5.6.27` pois devemos ignorar o 
+`-1debian8` que aparece ao final.
+
+![https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/versao-mysql-disponivel.png](https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/versao-mysql-disponivel.png)
 
 Usaremos aqui o nome `web_jessie` para o Contêiner.
 Caso exista algum conteiner com o mesmo nome rodando, 
@@ -228,7 +245,7 @@ Veja abaixo as modificações no docker-entrepoint.sh para suportar o SSH
 
 ![https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-entrypoint.png](https://raw.githubusercontent.com/joao-parana/jessie-lamp/master/docs/img/diff-entrypoint.png)
 
-As alaterações ao final são apenas melhoria no Help.
+As alterações ao final são apenas melhoria no Help.
 
 
 #### Mais detalhes sobre Docker no meu Blog: [http://joao-parana.com.br/blog/](http://joao-parana.com.br/blog/)
