@@ -4,6 +4,8 @@ FROM php:5.6-apache
 #
 MAINTAINER João Antonio Ferreira "joao.parana@gmail.com"
 
+ENV REFRESHED_AT 2015-10-03
+
 # Habilitando o módulo mod_rewrite que permite usar
 # as regras RewriteRule do Apache
 RUN a2enmod rewrite
@@ -13,7 +15,8 @@ RUN apt-get update \
   && apt-get install -y libpng12-dev libjpeg-dev \
   && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd
+	&& docker-php-ext-install gd \
+  && docker-php-ext-install zip
 
 # instalando a extensão PHP para acesso a MySQL
 RUN docker-php-ext-install mysqli
@@ -26,7 +29,7 @@ RUN mkdir /tmp/install-mysql
 WORKDIR /tmp/install-mysql
 
 ENV MYSQL_MAJOR 5.6
-ENV MYSQL_VERSION 5.6.26
+ENV MYSQL_VERSION 5.6.27
 
 COPY install-mysql.bash ./
 RUN ./install-mysql.bash
@@ -41,6 +44,14 @@ RUN apt-get update && \
     sed -i "s/PermitRootLogin without-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
 
 ENV AUTHORIZED_KEYS **None**
+
+# Extensão PHP usada no Moodle
+RUN apt-get update \
+  && docker-php-ext-install mbstring
+
+# RUN docker-php-ext-install xmlrpc
+# RUN docker-php-ext-install soap
+# RUN docker-php-ext-install intl
 
 ENV PHP_MEMORY_LIMIT 119M
 COPY config/php.ini /usr/local/etc/php/
