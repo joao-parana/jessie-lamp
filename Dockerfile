@@ -4,7 +4,7 @@ FROM php:5.6-apache
 #
 MAINTAINER João Antonio Ferreira "joao.parana@gmail.com"
 
-ENV REFRESHED_AT 2015-10-03
+ENV REFRESHED_AT 2016-01-02
 
 # Habilitando o módulo mod_rewrite que permite usar
 # as regras RewriteRule do Apache
@@ -29,7 +29,7 @@ RUN mkdir /tmp/install-mysql
 WORKDIR /tmp/install-mysql
 
 ENV MYSQL_MAJOR 5.6
-ENV MYSQL_VERSION 5.6.27
+ENV MYSQL_VERSION 5.6.28
 
 COPY install-mysql.bash ./
 RUN ./install-mysql.bash
