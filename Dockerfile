@@ -29,7 +29,7 @@ RUN mkdir /tmp/install-mysql
 WORKDIR /tmp/install-mysql
 
 ENV MYSQL_MAJOR 5.6
-ENV MYSQL_VERSION 5.6.28
+ENV MYSQL_VERSION 5.6.29
 
 COPY install-mysql.bash ./
 RUN ./install-mysql.bash
